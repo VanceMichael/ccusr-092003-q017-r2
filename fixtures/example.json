@@ -1,0 +1,6 @@
+{
+  "vehicle_ref": "BUS-DEMO",
+  "trip_ref": "TRIP-A",
+  "route_revision": 3,
+  "passenger_event": "boarded"
+}

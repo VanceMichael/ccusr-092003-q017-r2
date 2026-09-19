@@ -1,0 +1,19 @@
+{
+  "schema_version": "1",
+  "domain": "茶歇巴士移动服务联控",
+  "required_fields": [
+    "vehicle_ref",
+    "trip_ref",
+    "route_revision",
+    "passenger_event",
+    "food_lot",
+    "occurred_at"
+  ],
+  "time_format": "ISO 8601 with offset",
+  "sample": {
+    "vehicle_ref": "BUS-DEMO",
+    "trip_ref": "TRIP-A",
+    "route_revision": 3,
+    "passenger_event": "boarded"
+  }
+}
