@@ -1,6 +1,69 @@
 {
-  "vehicle_ref": "BUS-DEMO",
-  "trip_ref": "TRIP-A",
-  "route_revision": 3,
-  "passenger_event": "boarded"
+  "comment": "本地演示流程（不含真实身份），按顺序调用对应 HTTP 接口即可复现",
+  "flow": [
+    {
+      "step": 1,
+      "POST": "/vehicles",
+      "body": {"vehicle_ref": "BUS-DEMO", "name": "演示巴士", "capacity_lower": 30, "capacity_upper": 20}
+    },
+    {
+      "step": 2,
+      "POST": "/routes",
+      "body": {"route_ref": "ROUTE-DEMO", "name": "演示环线", "stops": ["宽窄巷子", "人民公园", "天府广场"]}
+    },
+    {
+      "step": 3,
+      "POST": "/trips",
+      "body": {
+        "trip_ref": "TRIP-A",
+        "vehicle_ref": "BUS-DEMO",
+        "route_ref": "ROUTE-DEMO",
+        "route_revision": 1,
+        "service_date": "2026-09-26",
+        "stop_windows": [
+          {"stop_name": "宽窄巷子", "planned_arrive_at": "2026-09-26T09:00:00+08:00", "planned_depart_at": "2026-09-26T09:10:00+08:00"}
+        ]
+      }
+    },
+    {
+      "step": 4,
+      "POST": "/vehicles/BUS-DEMO/inspections",
+      "body": {"result": "pass", "inspected_at": "2026-09-26T08:30:00+08:00"}
+    },
+    {
+      "step": 5,
+      "POST": "/food-lots",
+      "body": {"food_lot": "LOT-DEMO", "item_name": "茉莉花茶点心拼盘", "quantity": 50}
+    },
+    {
+      "step": 6,
+      "POST": "/trips/TRIP-A/inventory",
+      "body": {"food_lot": "LOT-DEMO", "quantity": 40}
+    },
+    {
+      "step": 7,
+      "POST": "/trips/TRIP-A/scans",
+      "body": {
+        "event_id": "EVT-DEMO-1",
+        "passenger_ref": "PAX-DEMO-1",
+        "passenger_event": "boarded",
+        "deck": "upper",
+        "occurred_at": "2026-09-26T08:55:00+08:00"
+      }
+    },
+    {
+      "step": 8,
+      "POST": "/trips/TRIP-A/headcounts",
+      "body": {"reported_count": 1, "reported_by": "STAFF-DEMO"}
+    },
+    {
+      "step": 9,
+      "POST": "/trips/TRIP-A/depart",
+      "body": {}
+    },
+    {
+      "step": 10,
+      "GET": "/trips/TRIP-A/replay"
+    }
+  ]
 }

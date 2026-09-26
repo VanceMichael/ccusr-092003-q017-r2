@@ -10,6 +10,24 @@
     "occurred_at"
   ],
   "time_format": "ISO 8601 with offset",
+  "enums": {
+    "passenger_event": ["boarded", "alighted"],
+    "deck": ["lower", "upper"],
+    "trip_status": ["scheduled", "boarding", "departed", "disrupted", "completed", "closed"],
+    "food_lot_status": ["active", "suspended", "disposed"],
+    "safety_category": [
+      "food_suspension",
+      "breakdown",
+      "road_adjustment",
+      "deck_closure",
+      "passenger",
+      "other"
+    ]
+  },
+  "idempotency": {
+    "passenger_events": "event_id 在 trip_ref 内唯一，断网恢复重传不重复计数",
+    "sale_events": "event_id 在 trip_ref 内唯一，断网恢复重传不重复扣库存"
+  },
   "sample": {
     "vehicle_ref": "BUS-DEMO",
     "trip_ref": "TRIP-A",
